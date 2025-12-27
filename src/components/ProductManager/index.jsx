@@ -15,7 +15,9 @@ export default function ProductManager() {
   const loadProducts = async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/products`);
-      setProducts(res.data);
+      // Sort biar produk terbaru ada di atas
+      const sorted = res.data.sort((a, b) => b.id - a.id);
+      setProducts(sorted);
     } catch (err) {
       console.error("Error load products:", err);
     }
@@ -28,24 +30,27 @@ export default function ProductManager() {
     }
   };
 
+  // Logic Tambah Produk
   const handleSubmit = async (formData, imageFile) => {
     setLoading(true);
     try {
       let imageUrl = "";
       if (imageFile) {
         const fileName = `products/${Date.now()}-${imageFile.name}`;
-        const { error } = await supabase.storage
-          .from("images")
-          .upload(fileName, imageFile);
+        const { error } = await supabase.storage.from("images").upload(fileName, imageFile);
         if (error) throw error;
-
         const { data } = supabase.storage.from("images").getPublicUrl(fileName);
         imageUrl = data.publicUrl;
       }
 
-      const payload = { ...formData, image_url: imageUrl };
-      await axios.post(`${API_BASE_URL}/products`, payload);
+      const payload = { 
+        ...formData, 
+        price: Number(formData.price), 
+        rating: Number(formData.rating),
+        image_url: imageUrl 
+      };
 
+      await axios.post(`${API_BASE_URL}/products`, payload);
       alert("✅ Product Saved!");
       loadProducts();
       return true;
@@ -58,10 +63,51 @@ export default function ProductManager() {
     }
   };
 
+  // Logic Edit Produk (NEW)
+  const handleEdit = async (id, formData, imageFile, oldImageUrl) => {
+    setLoading(true);
+    try {
+      let imageUrl = oldImageUrl; // Default pake gambar lama
+
+      // Kalau user upload gambar baru, ganti URL-nya
+      if (imageFile) {
+        const fileName = `products/${Date.now()}-${imageFile.name}`;
+        const { error } = await supabase.storage.from("images").upload(fileName, imageFile);
+        if (error) throw error;
+        const { data } = supabase.storage.from("images").getPublicUrl(fileName);
+        imageUrl = data.publicUrl;
+      }
+
+      const payload = {
+        ...formData,
+        price: Number(formData.price),
+        rating: Number(formData.rating),
+        image_url: imageUrl,
+      };
+
+      await axios.put(`${API_BASE_URL}/products/${id}`, payload);
+      alert("✅ Product Updated!");
+      loadProducts();
+      return true;
+    } catch (error) {
+      console.error(error);
+      alert("❌ Gagal update product");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <ProductForm onSubmit={handleSubmit} loading={loading} />
-      <ProductList products={products} onDelete={handleDelete} />
+      {/* Oper handleEdit ke ProductList */}
+      <ProductList 
+        products={products} 
+        onDelete={handleDelete} 
+        onEdit={handleEdit} 
+        isUpdating={loading} 
+      />
     </div>
   );
 }

@@ -7,6 +7,7 @@ export default function ProductForm({ onSubmit, loading }) {
     price: "",
     description: "",
     tag: "all",
+    rating: "4.5", // Default rating
   });
   const [imageFile, setImageFile] = useState(null);
   const [fileName, setFileName] = useState("");
@@ -23,7 +24,8 @@ export default function ProductForm({ onSubmit, loading }) {
     e.preventDefault();
     const success = await onSubmit(form, imageFile);
     if (success) {
-      setForm({ name: "", price: "", description: "", tag: "all" });
+      // Reset form kalau sukses
+      setForm({ name: "", price: "", description: "", tag: "all", rating: "4.5" });
       setImageFile(null);
       setFileName("");
     }
@@ -35,6 +37,7 @@ export default function ProductForm({ onSubmit, loading }) {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* NAME */}
           <div>
             <label className="block text-sm font-medium mb-1">
               Product Name
@@ -49,6 +52,7 @@ export default function ProductForm({ onSubmit, loading }) {
             />
           </div>
 
+          {/* PRICE */}
           <div>
             <label className="block text-sm font-medium mb-1">Price (Rp)</label>
             <input
@@ -61,6 +65,22 @@ export default function ProductForm({ onSubmit, loading }) {
             />
           </div>
 
+          {/* RATING (NEW) */}
+          <div>
+            <label className="block text-sm font-medium mb-1">Rating (0-5)</label>
+            <input
+              type="number"
+              step="0.1"
+              min="0"
+              max="5"
+              className="w-full p-2 border rounded-lg"
+              value={form.rating}
+              onChange={(e) => setForm({ ...form, rating: e.target.value })}
+              placeholder="4.5"
+            />
+          </div>
+
+          {/* CATEGORY */}
           <div>
             <label className="block text-sm font-medium mb-1">Category</label>
             <select
@@ -74,11 +94,12 @@ export default function ProductForm({ onSubmit, loading }) {
             </select>
           </div>
 
-          <div>
+          {/* IMAGE */}
+          <div className="md:col-span-2">
             <label className="block text-sm font-medium mb-1">
               Product Image
             </label>
-            <div className="border-2 border-dashed rounded-lg p-4 text-center">
+            <div className="border-2 border-dashed rounded-lg p-4 text-center hover:bg-gray-50 transition">
               <input
                 type="file"
                 id="product-image"
@@ -86,15 +107,17 @@ export default function ProductForm({ onSubmit, loading }) {
                 required
                 className="hidden"
               />
-              <label htmlFor="product-image" className="cursor-pointer">
+              <label htmlFor="product-image" className="cursor-pointer block">
                 <FiUpload className="mx-auto text-gray-400 mb-2" size={24} />
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 font-medium">
                   {fileName || "Click to upload image"}
                 </p>
+                <p className="text-xs text-gray-400 mt-1">PNG, JPG up to 5MB</p>
               </label>
             </div>
           </div>
 
+          {/* DESCRIPTION */}
           <div className="md:col-span-2">
             <label className="block text-sm font-medium mb-1">
               Description
@@ -115,7 +138,7 @@ export default function ProductForm({ onSubmit, loading }) {
         <button
           type="submit"
           disabled={loading}
-          className="flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 disabled:opacity-50"
+          className="flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 bg-indigo-900 text-white rounded-lg hover:bg-indigo-800 disabled:opacity-50 transition"
         >
           <FiSave />
           {loading ? "Saving..." : "Save Product"}

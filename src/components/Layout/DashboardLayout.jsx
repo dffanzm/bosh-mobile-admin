@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// 1. Import FiStar
 import {
   FiPackage,
   FiImage,
@@ -7,6 +6,7 @@ import {
   FiLogOut,
   FiUser,
   FiStar,
+  FiUsers, // <--- 1. Import Icon Users
 } from "react-icons/fi";
 
 export default function DashboardLayout({
@@ -17,16 +17,19 @@ export default function DashboardLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // 2. Tambah Menu 'Featured'
+  // 2. Tambah Menu 'Developers'
   const menuItems = [
     { id: "products", label: "Products", icon: FiPackage },
-    { id: "featured", label: "Featured", icon: FiStar }, // <--- Menu Baru
+    { id: "featured", label: "Featured", icon: FiStar },
     { id: "banners", label: "Banners", icon: FiImage },
+    { id: "developers", label: "Developers", icon: FiUsers }, // <--- Menu Baru
   ];
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
-      {/* Mobile Overlay Backdrop */}
+      {/* ... (SISA CODE SAMA PERSIS, GAK PERLU DIUBAH) ... */}
+
+      {/* Mobile Overlay & Sidebar Code tetep sama... */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 lg:hidden backdrop-blur-sm transition-opacity"
@@ -34,7 +37,6 @@ export default function DashboardLayout({
         />
       )}
 
-      {/* Sidebar */}
       <aside
         className={`
           fixed lg:static inset-y-0 left-0 z-50 w-64 bg-slate-900 text-white shadow-xl
@@ -140,9 +142,7 @@ export default function DashboardLayout({
                   : `${activeTab} Management`}
               </h2>
               <p className="text-gray-500 text-sm mt-1">
-                {activeTab === "featured"
-                  ? "Select products to highlight on homepage."
-                  : `Manage your ${activeTab} data here.`}
+                Manage your {activeTab} data here.
               </p>
             </div>
             {children}

@@ -5,6 +5,9 @@ import BannerManager from "./components/BannerManager";
 import LoginPage from "./components/Auth";
 import FeaturedProduct from "./components/ProductManager/FeaturedProduct";
 
+// 1. IMPORT COMPONENT BARU
+import DeveloperManager from "./components/DeveloperManager";
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem("isLoggedIn") === "true";
@@ -35,9 +38,13 @@ export default function App() {
       >
         {/* 2. LOGIC GANTI HALAMAN */}
         {activeTab === "products" && <ProductManager />}
-        {activeTab === "featured" && <FeaturedProduct />}{" "}
-        {/* <--- Halaman Baru */}
+
+        {activeTab === "featured" && <FeaturedProduct />}
+
         {activeTab === "banners" && <BannerManager />}
+
+        {/* <--- TAMBAHAN: Developers Page */}
+        {activeTab === "developers" && <DeveloperManager />}
       </DashboardLayout>
     </div>
   );

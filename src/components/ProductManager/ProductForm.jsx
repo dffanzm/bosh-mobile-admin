@@ -7,7 +7,10 @@ export default function ProductForm({ onSubmit, loading }) {
     price: "",
     description: "",
     tag: "all",
-    rating: "4.5", // Default rating
+    rating: "4.5",
+    top_note: "", // New
+    middle_note: "", // New
+    base_note: "", // New
   });
   const [imageFile, setImageFile] = useState(null);
   const [fileName, setFileName] = useState("");
@@ -25,7 +28,16 @@ export default function ProductForm({ onSubmit, loading }) {
     const success = await onSubmit(form, imageFile);
     if (success) {
       // Reset form kalau sukses
-      setForm({ name: "", price: "", description: "", tag: "all", rating: "4.5" });
+      setForm({
+        name: "",
+        price: "",
+        description: "",
+        tag: "all",
+        rating: "4.5",
+        top_note: "",
+        middle_note: "",
+        base_note: "",
+      });
       setImageFile(null);
       setFileName("");
     }
@@ -65,9 +77,11 @@ export default function ProductForm({ onSubmit, loading }) {
             />
           </div>
 
-          {/* RATING (NEW) */}
+          {/* RATING */}
           <div>
-            <label className="block text-sm font-medium mb-1">Rating (0-5)</label>
+            <label className="block text-sm font-medium mb-1">
+              Rating (0-5)
+            </label>
             <input
               type="number"
               step="0.1"
@@ -92,6 +106,59 @@ export default function ProductForm({ onSubmit, loading }) {
               <option value="new">New Arrivals</option>
               <option value="best">Best Seller</option>
             </select>
+          </div>
+
+          {/* --- FRAGRANCE NOTES SECTION --- */}
+          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-100">
+            <div className="md:col-span-3 text-sm font-bold text-gray-700">
+              Fragrance Notes
+            </div>
+
+            {/* Top Note */}
+            <div>
+              <label className="block text-xs font-medium mb-1 text-gray-600">
+                Top Note
+              </label>
+              <input
+                type="text"
+                className="w-full p-2 border rounded-lg text-sm"
+                value={form.top_note}
+                onChange={(e) => setForm({ ...form, top_note: e.target.value })}
+                placeholder="Ex: Vanilla, Citrus"
+              />
+            </div>
+
+            {/* Middle Note */}
+            <div>
+              <label className="block text-xs font-medium mb-1 text-gray-600">
+                Middle Note
+              </label>
+              <input
+                type="text"
+                className="w-full p-2 border rounded-lg text-sm"
+                value={form.middle_note}
+                onChange={(e) =>
+                  setForm({ ...form, middle_note: e.target.value })
+                }
+                placeholder="Ex: Jasmine, Rose"
+              />
+            </div>
+
+            {/* Base Note */}
+            <div>
+              <label className="block text-xs font-medium mb-1 text-gray-600">
+                Base Note
+              </label>
+              <input
+                type="text"
+                className="w-full p-2 border rounded-lg text-sm"
+                value={form.base_note}
+                onChange={(e) =>
+                  setForm({ ...form, base_note: e.target.value })
+                }
+                placeholder="Ex: Musk, Amber"
+              />
+            </div>
           </div>
 
           {/* IMAGE */}
@@ -140,8 +207,7 @@ export default function ProductForm({ onSubmit, loading }) {
           disabled={loading}
           className="flex items-center justify-center gap-2 w-full md:w-auto px-6 py-3 bg-indigo-900 text-white rounded-lg hover:bg-indigo-800 disabled:opacity-50 transition"
         >
-          <FiSave />
-          {loading ? "Saving..." : "Save Product"}
+          <FiSave /> {loading ? "Saving..." : "Save Product"}
         </button>
       </form>
     </div>

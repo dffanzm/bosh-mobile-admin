@@ -37,17 +37,20 @@ export default function ProductManager() {
       let imageUrl = "";
       if (imageFile) {
         const fileName = `products/${Date.now()}-${imageFile.name}`;
-        const { error } = await supabase.storage.from("images").upload(fileName, imageFile);
+        const { error } = await supabase.storage
+          .from("images")
+          .upload(fileName, imageFile);
         if (error) throw error;
         const { data } = supabase.storage.from("images").getPublicUrl(fileName);
         imageUrl = data.publicUrl;
       }
 
-      const payload = { 
-        ...formData, 
-        price: Number(formData.price), 
+      // Payload lengkap dengan Notes
+      const payload = {
+        ...formData,
+        price: Number(formData.price),
         rating: Number(formData.rating),
-        image_url: imageUrl 
+        image_url: imageUrl,
       };
 
       await axios.post(`${API_BASE_URL}/products`, payload);
@@ -63,7 +66,7 @@ export default function ProductManager() {
     }
   };
 
-  // Logic Edit Produk (NEW)
+  // Logic Edit Produk
   const handleEdit = async (id, formData, imageFile, oldImageUrl) => {
     setLoading(true);
     try {
@@ -72,12 +75,15 @@ export default function ProductManager() {
       // Kalau user upload gambar baru, ganti URL-nya
       if (imageFile) {
         const fileName = `products/${Date.now()}-${imageFile.name}`;
-        const { error } = await supabase.storage.from("images").upload(fileName, imageFile);
+        const { error } = await supabase.storage
+          .from("images")
+          .upload(fileName, imageFile);
         if (error) throw error;
         const { data } = supabase.storage.from("images").getPublicUrl(fileName);
         imageUrl = data.publicUrl;
       }
 
+      // Payload lengkap dengan Notes
       const payload = {
         ...formData,
         price: Number(formData.price),
@@ -102,11 +108,11 @@ export default function ProductManager() {
     <div className="space-y-6">
       <ProductForm onSubmit={handleSubmit} loading={loading} />
       {/* Oper handleEdit ke ProductList */}
-      <ProductList 
-        products={products} 
-        onDelete={handleDelete} 
-        onEdit={handleEdit} 
-        isUpdating={loading} 
+      <ProductList
+        products={products}
+        onDelete={handleDelete}
+        onEdit={handleEdit}
+        isUpdating={loading}
       />
     </div>
   );

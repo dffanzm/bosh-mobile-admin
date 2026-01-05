@@ -1,28 +1,25 @@
-# BOSH PARFUME - Core RESTful API Service
+# BOSH PARFUME - Management Dashboard (Admin Panel)
 
-![Backend](https://img.shields.io/badge/Type-REST%20API-green)
-![Security](https://img.shields.io/badge/Auth-JWT%20Protected-red)
+![Admin](https://img.shields.io/badge/Role-Administrator-blueviolet)
+![Control](https://img.shields.io/badge/Function-Data%20Management-blue)
 
-## 🧠 Overview
-Repository ini merupakan "Otak" dari ekosistem BOSH PARFUME. Bertanggung jawab atas manajemen data terpusat, otentikasi, dan penyediaan sumber daya melalui protokol HTTP/JSON. Backend ini dirancang dengan prinsip **Stateless**, memungkinkan skalabilitas horizontal yang mudah saat trafik pengguna meningkat.
+## 🖥 Overview
+**BOSH Admin Panel** adalah antarmuka web khusus yang memberikan kendali penuh kepada pemangku kepentingan untuk mengelola konten aplikasi mobile secara *real-time*. Dengan adanya panel ini, operasional bisnis seperti pembaruan stok, harga, dan visual promosi dapat dilakukan tanpa harus melakukan intervensi kode atau rilis ulang aplikasi ke Play Store.
 
-## ⚙️ Core Responsibilities
-- **Data Orchestration:** Mengelola siklus hidup data produk, banner, dan informasi tim pengembang.
-- **Resource Delivery:** Menyediakan aset gambar dan metadata melalui endpoint yang teroptimasi.
-- **Content Security:** Menjaga integritas data agar hanya dapat dimodifikasi melalui hak akses yang sah.
+## 💎 Business Scalability
+- **Real-Time Data Injection:** Perubahan pada dashboard akan langsung terefleksi di aplikasi mobile dalam hitungan detik.
+- **Centralized Asset Management:** Memudahkan pengelolaan kampanye visual (banner) secara musiman.
+- **Data Integrity:** Validasi input yang ketat untuk memastikan tampilan di aplikasi mobile tetap konsisten dan profesional.
 
-## 📡 API Endpoints (Documentation)
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/products` | Fetch all curated fragrance products. |
-| `GET` | `/api/products/tag/:id` | Filter products based on specific aroma tags. |
-| `GET` | `/api/banners` | Get latest promotional hero banners. |
-| `GET` | `/api/developers` | Retrieve development team information. |
+## 🛠 Key Capabilities
+- **Product Management:** CRUD (Create, Read, Update, Delete) katalog parfum dan detail notes-nya.
+- **Banner Controller:** Pengaturan urutan dan status aktif banner promosi.
+- **Analytics Ready:** Struktur yang siap diintegrasikan dengan modul analitik penjualan di masa depan.
 
 ## 🔗 Institution Reference
 - **UIN Sunan Gunung Djati Bandung:** [https://uinsgd.ac.id/](https://uinsgd.ac.id/)
 - **Jurusan Informatika:** [http://if.uinsgd.ac.id/](http://if.uinsgd.ac.id/)
 
 ## 📽 Pitch Deck
-Dokumentasi alur sistem dan arsitektur database dapat dilihat di:
+Rencana pengembangan fitur dan skalabilitas operasional dapat dipelajari di:
 👉 **[Link Pitch Deck BOSH PARFUME Di Sini]**

@@ -1,16 +1,28 @@
-# React + Vite
+# BOSH PARFUME - Core RESTful API Service
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Backend](https://img.shields.io/badge/Type-REST%20API-green)
+![Security](https://img.shields.io/badge/Auth-JWT%20Protected-red)
 
-Currently, two official plugins are available:
+## 🧠 Overview
+Repository ini merupakan "Otak" dari ekosistem BOSH PARFUME. Bertanggung jawab atas manajemen data terpusat, otentikasi, dan penyediaan sumber daya melalui protokol HTTP/JSON. Backend ini dirancang dengan prinsip **Stateless**, memungkinkan skalabilitas horizontal yang mudah saat trafik pengguna meningkat.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⚙️ Core Responsibilities
+- **Data Orchestration:** Mengelola siklus hidup data produk, banner, dan informasi tim pengembang.
+- **Resource Delivery:** Menyediakan aset gambar dan metadata melalui endpoint yang teroptimasi.
+- **Content Security:** Menjaga integritas data agar hanya dapat dimodifikasi melalui hak akses yang sah.
 
-## React Compiler
+## 📡 API Endpoints (Documentation)
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/products` | Fetch all curated fragrance products. |
+| `GET` | `/api/products/tag/:id` | Filter products based on specific aroma tags. |
+| `GET` | `/api/banners` | Get latest promotional hero banners. |
+| `GET` | `/api/developers` | Retrieve development team information. |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🔗 Institution Reference
+- **UIN Sunan Gunung Djati Bandung:** [https://uinsgd.ac.id/](https://uinsgd.ac.id/)
+- **Jurusan Informatika:** [http://if.uinsgd.ac.id/](http://if.uinsgd.ac.id/)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📽 Pitch Deck
+Dokumentasi alur sistem dan arsitektur database dapat dilihat di:
+👉 **[Link Pitch Deck BOSH PARFUME Di Sini]**
